@@ -1,0 +1,267 @@
+// header horizantal scrollbar
+
+/*change the thinkness of the scrollbar here*/
+// scrollbar will look like hidden when both height and width is 0
+.data-header-column::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+}
+
+/*add a shadow to the scrollbar here*/
+.data-header-column::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+}
+
+/*this is the little scrolly dealio in the bar*/
+.data-header-column::-webkit-scrollbar-thumb {
+  background: #000000;
+}
+
+
+// fixed column vertical scrollbar
+
+/*change the thinkness of the scrollbar here*/
+// scrollbar will look like hidden when both height and width is 0
+.table-fixed-column-body::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+}
+
+/*add a shadow to the scrollbar here*/
+.table-fixed-column-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+}
+
+/*this is the little scrolly dealio in the bar*/
+.table-fixed-column-body::-webkit-scrollbar-thumb {
+  background: #000000;
+}
+
+
+// table body vertical and horizantal scrollbar
+
+/*change the thinkness of the scrollbar here*/
+.table-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+}
+
+/*add a shadow to the scrollbar here*/
+.table-body::-webkit-scrollbar-track {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+}
+
+/*this is the little scrolly dealio in the bar*/
+.table-body::-webkit-scrollbar-thumb {
+  background: #000000;
+}
+
+.maxwidth {
+  max-width: 900px;
+}
+
+/*nobody needs this little scrollbar corner, I mean really, get rid of it haha*/
+::-webkit-scrollbar-corner {
+  display: none;
+  height: 0px;
+  width: 0px;
+}
+
+.btn-submit {
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  font-family: inherit;
+  font-size: 14px;
+  /* padding: .5em 1em; */
+  color: #444;
+  border: none transparent;
+  background-color: #e6e6e6;
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+.data-table {
+  .data-table-body-container {
+    border: 1px solid #ccc;
+    width: fit-content;
+  }
+
+  .table-header {
+    display: table-row;
+
+    .data-header-column {
+      max-width: 900px;
+      overflow: auto;
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+
+      .data-column {
+        &:last-child {
+          border-right: unset;
+        }
+        min-width: 150px;
+        padding: 10px;
+        display: table-cell;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+
+  }
+
+  .data-header-fixed-column {
+    .data-column {
+      min-width: 150px;
+      padding: 10px;
+      display: table-cell;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
+  .no-rows-container {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .table-body-wrapper {
+    display: flex;
+
+    .table-body {
+      // display: table-row-group;
+      max-height: 200px;
+      height: 200px;
+      max-width: 900px;
+      width: 900px;
+      min-width: 900px;
+      overflow: auto;
+      width: fit-content;
+
+
+      .data-row {
+        display: table-row;
+        width: 100%;
+
+        .data-cell {
+
+          &:last-child {
+            border-right: unset;
+          }
+
+          width: inherit;
+          padding: 10px;
+          display: table-cell;
+          border-right: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .table-fixed-column-body {
+      max-height: 200px;
+      height: 200px;
+      overflow: auto;
+      width: fit-content;
+
+      .fixed-column-data-row {
+        display: table-row;
+        width: 100%;
+
+        .data-cell {
+          width: inherit;
+          padding: 10px;
+          display: table-cell;
+          border-right: 1px solid #ccc;
+          border-bottom: 1px solid #ccc;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .table-fixed-column-body.overflowx {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .overflowx {
+      .fixed-column-data-row {
+        &:last-child {
+          .data-cell {
+            border-bottom: unset;
+          }
+        }
+      }
+    }
+  }
+
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+
+    .records-per-page {
+      .page-size {
+        border: 1px solid #ccc;
+        padding: 5px;
+        font-size: 16px;
+      }
+    }
+
+    .pagination-container {
+      display: flex;
+
+      .pagination {
+        display: inline-block;
+        margin: unset;
+      }
+
+      .pagination>li {
+        display: inline;
+      }
+
+      .pagination>li>a,
+      .pagination>li>span {
+        cursor: pointer;
+        padding: 6px 8px;
+        margin-left: -1px;
+        line-height: 1.5;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+
+        &:hover {
+          color: #23527c;
+          background-color: #eee;
+          border-color: #ddd;
+        }
+      }
+
+      .pagination>.active>a,
+      .pagination>.active>span,
+      .pagination>.active>a:hover,
+      .pagination>.active>span:hover,
+      .pagination>.active>a:focus,
+      .pagination>.active>span:focus {
+        color: #fff;
+        cursor: default;
+        background-color: #337ab7;
+        border-color: #337ab7;
+      }
+    }
+  }
+}

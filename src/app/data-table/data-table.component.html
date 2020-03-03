@@ -1,0 +1,64 @@
+<div class="data-table">
+  <div class="data-table-body-container">
+
+    <div style="display: flex;">
+      <div class="data-header-fixed-column" id="data-table-fixed-header">
+        <div class="data-column" *ngFor="let fixedcol of fixedColumns" [ngStyle]="{'min-width': fixedcol.width}">
+          {{fixedcol.name}} </div>
+      </div>
+      <div class="table-header">
+        <div class="data-header-column" id="data-table-header" [ngClass]="{'maxwidth': overflowX}">
+          <div class="data-column" *ngFor="let col of columns" [ngStyle]="{'min-width': col.width}"> {{col.name}} </div>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-container *ngIf="!noRows;else noRowsTemplate">
+      <div class="table-body-wrapper">
+        <div class="table-fixed-column-body" id="data-table-fixed-column-body" [ngStyle]="{'height': fixedBodyHeight}"
+          [ngClass]="{'overflowx': overflowX}">
+          <div class="fixed-column-data-row" *ngFor="let row of displayRows">
+            <div class="data-cell" *ngFor="let column of fixedColumns">
+              <button class="btn-submit" (click)="column.callback(row)">Submit</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-body" id="data-table-body" (scroll)="tableBodyScrolled($event)">
+          <div class="data-row" *ngFor="let row of displayRows">
+            <div class="data-cell" *ngFor="let column of columns">
+              {{row[column.field]}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noRowsTemplate>
+      <div class="no-rows-container">No Rows</div>
+    </ng-template>
+  </div>
+  <div *ngIf="paginationType === 'pagination' && !noRows" class="table-footer">
+    <div class="records-per-page">
+      <select class="page-size" [ngModel]="selectedPageSize" (ngModelChange)="updatePageSize($event)">
+        <option *ngFor="let size of pageSize" value="{{size}}">{{size}}</option>
+      </select>
+    </div>
+    <div class="pagination-container">
+      <ul *ngIf="pageInfo.pages && pageInfo.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pageInfo.currentPage === 1}">
+          <a (click)="setPage(1)">
+            <<</a> </li> <li [ngClass]="{disabled:pageInfo.currentPage === 1}">
+              <a (click)="setPage(pageInfo.currentPage - 1)">
+                <</a> </li> <li *ngFor="let page of pageInfo.pages" [ngClass]="{active:pageInfo.currentPage === page}">
+                  <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pageInfo.currentPage === pageInfo.totalPages}">
+          <a (click)="setPage(pageInfo.currentPage + 1)">></a>
+        </li>
+        <li [ngClass]="{disabled:pageInfo.currentPage === pageInfo.totalPages}">
+          <a (click)="setPage(pageInfo.totalPages)">>></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
