@@ -1,0 +1,34 @@
+.filter-container {
+  width: 900px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #a6a6a6;
+  margin: 10px;
+  
+  .filter-by {
+    border-right: 1px solid #a6a6a6;
+  }
+  .filter-value {
+    width: 80%;
+  }
+}
+
+:host ::ng-deep {
+  .ui-dropdown {
+    border: none;
+    box-shadow: none !important;
+  }
+
+  .ui-inputtext {
+    border: none;
+    width: 100%;
+    outline: none;
+    box-shadow: none !important;
+  }
+
+  .ui-inputgroup .ui-button {
+    border-radius: 0 !important;
+    box-shadow: none;
+    outline: none;
+  }
+}

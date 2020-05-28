@@ -1,0 +1,12 @@
+<div class="filter-container">
+  <div class="filter-by">
+    <p-dropdown placeholder="Query By" [options]="filters" [(ngModel)]="selectedFilter" (ngModelChange)="filterUpdated()" optionLabel="filterName"></p-dropdown>
+  </div>
+  <div class="filter-value">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText [(ngModel)]="filterValue" (ngModelChange)="filterUpdated()" /> 
+      <button pButton type="button" icon="pi pi-plus-circle" class="ui-button-warn" (click)="addClicked()" ></button>      
+      <button pButton type="button" icon="pi pi-minus-circle" class="ui-button-danger" (click)="deleteClicked()" ></button>      
+    </div>
+  </div>
+</div>

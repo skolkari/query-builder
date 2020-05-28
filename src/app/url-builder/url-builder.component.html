@@ -1,0 +1,11 @@
+<div class="url-container">
+  <div class="method">
+    <p-dropdown [options]="methods" [(ngModel)]="selectedMethod"></p-dropdown>
+  </div>
+  <div class="url-value">
+    <textarea [rows]="1" pInputTextarea autoResize="autoResize" [(ngModel)]="formattedUrl"></textarea>
+  </div>
+  <div class="url-submit">
+    <button pButton type="button" label="Submit" class="ui-button-raised"></button>
+  </div>
+</div>

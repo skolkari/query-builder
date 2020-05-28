@@ -1,19 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 import { AppComponent } from './app.component';
-import { DataTableModule } from './data-table/data-table.module';
 import { AppService } from './app.service';
+import { HttpClientModule } from '@angular/common/http';
+import { QueryByComponent } from './query-by/query-by.component';
+import { UrlBuilderComponent } from './url-builder/url-builder.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QueryByComponent,
+    UrlBuilderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    DataTableModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    DropdownModule,
+    InputTextModule,
+    InputTextareaModule,
+    ButtonModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

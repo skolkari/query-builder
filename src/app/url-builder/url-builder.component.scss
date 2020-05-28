@@ -1,0 +1,17 @@
+.url-container {
+  width: 900px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+
+  .url-value {
+    width: 70%;
+  }
+}
+
+:host ::ng-deep {
+  .ui-inputtext {
+    width: 100%;
+    line-height: 15px;
+  }
+}

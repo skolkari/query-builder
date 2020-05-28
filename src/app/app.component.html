@@ -1,38 +1,6 @@
-<div class="table-options">
-  <label class="table-type">Select Table Type</label>
-  <label class="radio-container">With Pagination
-    <input type="radio" [attr.checked]="(paginationType === 'pagination') ? true : null" (click)="paginationType = 'pagination';toggleRows();" value="'pagination'" name="tableType">
-    <span class="checkmark"></span>
-  </label>
-  <label class="radio-container">Infinite Scrolling
-    <input type="radio" [attr.checked]="(paginationType === 'infinitescroll') ? true : null" (click)="paginationType = 'infinitescroll';toggleRows();" value="'infinitescroll'" name="tableType">
-    <span class="checkmark"></span>
-  </label>
-  <label class="radio-container">No Rows Case
-    <input type="radio" [attr.checked]="(paginationType === 'norows') ? true : null" (click)="paginationType = 'norows';toggleRows();" value="'infinitescroll'" name="tableType">
-    <span class="checkmark"></span>
-  </label>
-</div>
-<div class="table-container">
-  <app-data-table *ngIf="!dataFetchInProgess" [columns]="selectedColumns" [fixedColumns]="fixedColumns" [rows]="rows" [paginationType]="paginationType" ></app-data-table>
-  <div class="select-columns">
-    <div class="select-columns-header">
-      <div class="select-columns-cell">Select Columns</div>
-    </div>
-    <div class="select-columns-body" [ngClass]="{'infinite-scroll-height': (paginationType === 'infinitescroll' || (rows && rows.length == 0))}" >
-      <div class="select-columns-row"  *ngFor="let col of scrollableColumns" >
-        <div class="select-columns-cell">
-          <label class="checkbox-container"> {{col.name}}
-            <input type="checkbox" [attr.checked]="col.selected ? true: null" (click)="columnSelected($event, col)" >
-            <span class="checkmark"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-    
+<div>
+  <url-builder [selectedFilters]="updatedFilters" ></url-builder>
+  <div *ngFor="let item of filterIds" >
+    <query-by [queryId]="item.id" (onUpdate)="updateFilter($event)" (onAdd)="addFilter()" (onDelete)="deleteFilter($event)"></query-by>
   </div>
-</div>
-<div *ngIf="showSaveRowSuccess" class="alert success">
-  <span class="closebtn">&times;</span>  
-  {{rowName}} saved..!!!
 </div>

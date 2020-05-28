@@ -6,17 +6,7 @@ import { of } from 'rxjs';
 export class AppService {
     constructor(private httpClient: HttpClient) { }
 
-    getTableData() {
-        // return this.httpClient.get('../assets/api/mock-data.json');
-        return this.httpClient.get('http://localhost:3000/gettabledata');
+    fetchRecords(payload) {
+        return this.httpClient.post('http://localhost:8080/generate', payload).pipe(res => res );
     }
-
-    updateTableRow(payload) {
-        // return of({
-        //     status: 200,
-        //     message: 'success'
-        // });
-        return this.httpClient.post('http://localhost:3000/saverow', payload).pipe(res => res );
-    }
-
 }

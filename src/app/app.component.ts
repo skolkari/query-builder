@@ -1,171 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from './app.service';
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { AppService } from "./app.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  title = 'data-table';
+  title = "querybuilder";
+  filterIds = [];
+  updatedFilters = [];
 
-  rows: any[] = [];
-  selectedColumns: any[] = [];
-  scrollableColumns: any[] = [];
-  fixedColumns: any[] = [];
-  paginationType = 'pagination';
-  dataFetchInProgess = true;
-  rowName = '';
-  showSaveRowSuccess = false;
-  columns = [
-    {
-      name: 'Name',
-      field: 'name',
-      selected: true
-    },
-    {
-      name: 'Phone',
-      field: 'phone',
-      selected: true
-    },
-    {
-      name: 'Email',
-      field: 'email',
-      selected: true
-    },
-    {
-      name: 'Company',
-      field: 'company',
-      selected: true
-    },
-    {
-      name: 'Date of Entry',
-      field: 'date_entry',
-      selected: false
-    },
-    {
-      name: 'Org Num',
-      field: 'org_num',
-      selected: false
-    },
-    {
-      name: 'Address',
-      field: 'address_1',
-      selected: false
-    },
-    {
-      name: 'City',
-      field: 'city',
-      selected: false
-    },
-    {
-      name: 'Zip',
-      field: 'zip',
-      selected: false
-    },
-    {
-      name: 'Pan',
-      field: 'pan',
-      selected: false
-    },
-    {
-      name: 'Pin',
-      field: 'pin',
-      selected: false
-    },
-    {
-      name: 'Fee',
-      field: 'fee',
-      selected: false
-    },
-    {
-      name: 'Date of Exit',
-      field: 'date_exit',
-      selected: false
-    },
-    {
-      name: 'Date of First',
-      field: 'date_first',
-      selected: false
-    },
-    {
-      name: 'Date of Recent',
-      field: 'date_recent',
-      selected: false
-    },
-    {
-      name: 'Submit',
-      field: 'submit',
-      fixed: true,
-      callback: ($event) => { this.saveRow($event); }
-    }
-  ];
-
-  constructor(private appService: AppService) {
-
-  }
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.findSelectedColumns();
-    this.appService.getTableData().subscribe((response: any) => {
-      console.log('response => ', response);
-      if (response && response.data) {
-        this.rows = response.data;
-        this.dataFetchInProgess = false;
-      }
-    }, error => {
-      this.dataFetchInProgess = false;
-    });
+    console.log('initiated');
+    this.addFilter();
   }
 
-  toggleRows() {
-    this.dataFetchInProgess = true;
-    if (this.paginationType != 'norows') {
-      this.appService.getTableData().subscribe((response: any) => {
-        console.log('response => ', response);
-        if (response && response.data) {
-          this.rows = response.data;
-          this.dataFetchInProgess = false;
-        }
-      }, error => {
-        this.dataFetchInProgess = false;
-      });
+  addFilter() {
+    console.log('add filter called');
+    let randomId = Math.floor(1000 + Math.random() * 9000);
+    this.filterIds.push({
+      id: randomId
+    })
+  }
+
+  updateFilter($event) {
+    console.log('update event => ', $event);
+    if(this.updatedFilters.filter(x => x.queryId === $event.queryId).length === 0) {
+      this.updatedFilters.push($event);
     } else {
-      this.rows = [];
-      this.dataFetchInProgess = false;
+      this.updatedFilters.find(x => x.queryId === $event.queryId).filterId = $event.filterId
+      this.updatedFilters.find(x => x.queryId === $event.queryId).filterValue = $event.filterValue
+    }
+    console.log('this.updatedFilters ==> ', this.updatedFilters);
+    this.updatedFilters = JSON.parse(JSON.stringify(this.updatedFilters));
+    this.cdRef.detectChanges();
+  }
+
+  deleteFilter($event) {
+    this.updatedFilters = this.updatedFilters.filter(x => x.queryId !== $event.queryId)
+    this.filterIds = this.filterIds.filter(x => x.id !== $event.queryId);
+    if(this.filterIds.length === 0) {
+      this.addFilter();
     }
   }
 
-  saveRow(rowData) {
-    console.log('received ip ===> ', rowData);
-    const payload = {
-      id: rowData.id,
-      status: rowData.status
-    };
-    this.rowName = rowData.name;
-    this.appService.updateTableRow(payload).subscribe(response => {
-      console.log('response recieved => ', response);
-      this.showSaveRowSuccess = true;
-      setTimeout(() => {
-        this.showSaveRowSuccess = false;
-      }, 2000);
-    });
-  }
-
-  columnSelected($event, col) {
-    if ($event && $event.target) {
-      if ($event.target.checked) {
-        col.selected = true;
-      } else {
-        col.selected = false;
-      }
-      this.findSelectedColumns();
-    }
-  }
-
-  findSelectedColumns() {
-    this.selectedColumns = this.columns.filter(col => col.selected);
-    this.scrollableColumns = this.columns.filter(col => !col.fixed);
-    this.fixedColumns = this.columns.filter(col => col.fixed);
-  }
 }
