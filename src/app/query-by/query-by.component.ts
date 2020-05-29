@@ -18,12 +18,9 @@ export class QueryByComponent implements OnInit {
 	@Output() onDelete = new EventEmitter<any>();
 
   filters: Filter[] = [
-    { filterId: "ProviderID", filterName: "Provider ID" },
-    { filterId: "Title", filterName: "Title" },
-    { filterId: "ContentType", filterName: "Content Type" },
-    { filterId: "MPXMediaID", filterName: "Media GUID" },
-    { filterId: "WWEnabled", filterName: "Slice/WW Enabled" },
-    { filterId: "Status", filterName: "Status" },
+    { filterId: "filter1", filterName: "Filter 1" },
+    { filterId: "filter2", filterName: "Filter 2" },
+    { filterId: "filter3", filterName: "Filter 3" },
 	];
 	
 	selectedFilter: Filter;
